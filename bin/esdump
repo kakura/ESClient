@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/local/bin/python3
 
 # Copyright 2012-2013 Erik-Jan van Baaren (erikjan@gmail.com)
 # This tool is released as part of the python package ESClient which can be found on PyPI.org
@@ -66,7 +66,7 @@ if (arguments.count):
     if not 'count' in count_result:
         fail_exit("You cannot use zero or multiple indexes when count is given.")
 
-    print str(count_result['count'])
+    #print str(count_result['count'])
     sys.exit(0)
 
 if (arguments.mappingfile):
@@ -109,8 +109,8 @@ while True:
         if hit["_index"] not in indexes:
             indexes.add(hit["_index"])
 
-        f.write(json.dumps(hit))
-        f.write('\n')
+        f.write(bytes(json.dumps(hit),'UTF-8'))
+        f.write(bytes('\n','UTF-8'))
         num_results += 1
 
     # See if we reached the end of the data
