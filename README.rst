@@ -1,4 +1,11 @@
 ====================================
+Modefied 
+====================================
+
+work in Python3
+
+
+====================================
 WARNING: There is an official client
 ====================================
 ElasticSearch now has an official Python API. For new projects, I strongly recommend you to use it.
