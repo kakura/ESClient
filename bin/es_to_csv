@@ -104,7 +104,12 @@ def data_check(x):
     return x
 
 def split_parameters(params):
-    return  dict(item.split("=") for item in params.split("&"))
+    table = []
+    for item in params.split("&"):
+        if item:
+            table.append(item.split("="))
+
+    return  dict(table)
 
 def split_path(path,prefix='_path'):
     paths = list(filter(data_check , path.split('/')))
@@ -181,8 +186,7 @@ while True:
             continue
 
         path = urlsplit(source['path'])
-
-        if path.query:            
+        if path.query != '':
             record = split_parameters(path.query)                
         else:
             record = {}
