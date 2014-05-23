@@ -133,11 +133,9 @@ def string2int16(x):
         return int(x,16)
 
 def dms2deg(coord):
-    # ミリ秒 -> 10進
     return (int(coord) / 60 / 60 / 1000)
 
 def tokyo2wgs(lat, lng):
-    # WGS -> TKY
     lat = dms2deg(lat)
     lng = dms2deg(lng)
     return {
@@ -181,7 +179,6 @@ while True:
             if search_path(source['path'], ignore_paths) == True:
                 continue
             
-        # ELBヘルスチェックは集計しない
         if 'ELB-HealthChecker' in source.get('agent'):
             continue
 
@@ -191,25 +188,21 @@ while True:
         else:
             record = {}
 
-        # 必要な情報を追加
         record['_timestamp'] = datetime_format(source.get('@timestamp'))
         record['_ua'] = data_check(source.get('agent'))
         record['_size'] = data_check(source.get('size'))
         record.update(split_path(path.path))
 
-        #１６進数パラメータは１０進数にしちゃう
         for i in list_16:
             if (i in record) and record[i]:
                 record[i] = string2int16(record[i])
 
-        # 座標パラメータは世界測地にしちゃう
         for k,v in list_coord.items():
             if (v['lat'] in record) and (v['lng'] in record):
                 latlng = tokyo2wgs(record[v['lat']],record[v['lng']])
                 record[v['lat']] = latlng['lat']
                 record[v['lng']] = latlng['lng']
             
-        # keyをインデックスとしてPush
         querys.append(
             Series(record))
             
