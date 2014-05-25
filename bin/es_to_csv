@@ -104,10 +104,13 @@ def data_check(x):
     return x
 
 def split_parameters(params):
+    print(params)
     table = []
-    for item in params.split("&"):
-        if item:
-            table.append(item.split("="))
+    for items in params.split("&"):
+        if items:
+            item = items.split("=")
+            if len(item) <= 2:
+                table.append(item)
 
     return  dict(table)
 
