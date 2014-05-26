@@ -104,7 +104,6 @@ def data_check(x):
     return x
 
 def split_parameters(params):
-    print(params)
     table = []
     for items in params.split("&"):
         if items:
